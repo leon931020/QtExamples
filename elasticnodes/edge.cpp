@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
 **
 ** Copyright (C) 2015 The Qt Company Ltd.
 ** Contact: http://www.qt.io/licensing/
@@ -79,9 +79,12 @@ void Edge::adjust()
     if (!source || !dest)
         return;
 
+    //两个item之间的向量
     QLineF line(mapFromItem(source, 0, 0), mapFromItem(dest, 0, 0));
     qreal length = line.length();
 
+
+    //改变boundigRect前，需要调用此函数
     prepareGeometryChange();
 
     if (length > qreal(20.)) {
@@ -91,6 +94,10 @@ void Edge::adjust()
     } else {
         sourcePoint = destPoint = line.p1();
     }
+
+
+    //normalize():当width或height为负时，相当于坐标轴负方向画了矩形
+    //adjusted():调整矩形的左上和右下点的位置，从而调整矩形大小
 }
 //! [2]
 

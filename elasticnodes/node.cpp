@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
 **
 ** Copyright (C) 2015 The Qt Company Ltd.
 ** Contact: http://www.qt.io/licensing/
@@ -71,7 +71,7 @@ QList<Edge *> Node::edges() const
 }
 //! [1]
 
-//! [2]
+//! [2]本函数利用"推拉力算法"实现了节点和线条的动态变化，可查看官方例子解析
 void Node::calculateForces()
 {
     if (!scene() || scene()->mouseGrabberItem() == this) {
@@ -89,6 +89,9 @@ void Node::calculateForces()
         if (!node)
             continue;
 
+
+
+        //把本item的(0,0)点映射到item node的坐标系中
         QPointF vec = mapToItem(node, 0, 0);
         qreal dx = vec.x();
         qreal dy = vec.y();
@@ -182,6 +185,9 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 //! [11]
 QVariant Node::itemChange(GraphicsItemChange change, const QVariant &value)
 {
+
+    //当item位置发生改变时，1：调整item关联边的位置，实现边动态绘制；
+    //2：启动定时器：更新item位置
     switch (change) {
     case ItemPositionHasChanged:
         foreach (Edge *edge, edgeList)

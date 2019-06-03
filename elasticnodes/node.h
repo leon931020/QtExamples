@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
 **
 ** Copyright (C) 2015 The Qt Company Ltd.
 ** Contact: http://www.qt.io/licensing/
@@ -63,9 +63,14 @@ public:
     int type() const Q_DECL_OVERRIDE { return Type; }
 
     void calculateForces();
+
+    //非虚函数advance(int)
     bool advance();
 
+    //item的边框矩形
     QRectF boundingRect() const Q_DECL_OVERRIDE;
+
+    //item的具体形状，不重写默认返回boundingRect()
     QPainterPath shape() const Q_DECL_OVERRIDE;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) Q_DECL_OVERRIDE;
 
